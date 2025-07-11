@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="img/large.png" />
+  <title>ЮнионДекватор</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* Базовые стили */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0e0e0e;
+      color: #f0f0f0;
+      min-height: 100vh;
+      display: flex;
+      overflow-x: hidden;
+    }
+
+    /* Навигация слева */
+    nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+  
+
+  /* Прозрачность + стеклянный эффект */
+  background: linear-gradient(to right, rgba(0, 0, 50, 0.6), rgba(0, 0, 0, 0));
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  padding: 2rem 1rem;
+  z-index: 1000;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+nav h1 {
+  font-size: 1.5rem;
+  color: var(--green);
+  margin: 0 auto 3rem auto;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+  text-shadow: 0 0 5px rgba(0, 255, 128, 0.4);
+}
+
+nav ul {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  margin: 1rem 0;
+}
+
+nav ul li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  color: #ffffffdd;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #a0b9f1;
+}
+
+nav ul li .progress-bar {
+  width: 40px;
+  height: 2px;
+  background: #ffffff88;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+nav ul li.active .progress-bar {
+  width: 50px;
+  background: #a0b9f1;
+  opacity: 1;
+}
+
+    /* Основной контент с отступом слева */
+    main {
+      margin-left: 250px;
+      flex: 1;
+    }
+
+    /* Секция "ЮнионДекватор" с фоном */
+    #home {
+      position: relative;
+      height: 100vh;
+      background-image: url('https://sun9-43.userapi.com/impf/3lsdTuj5KXLoVmoKmhCjpYJfjaR1vW4E0Irs4w/pHkBIc2ieX4.jpg?size=1920x768&quality=95&crop=0,0,1920,767&sign=9b23414e1434626e47f2d4bfe8cb79ba&type=cover_group');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    #home h2 {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    #home p {
+      font-size: 1.5rem;
+      max-width: 600px;
+      font-weight: 400;
+      color: #ddd;
+      text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.75);
+    }
+
+    /* Другие секции */
+    section {
+      padding: 6rem 2rem;
+      min-height: 100vh;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .card {
+      background: #1f1f1f;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 0.5rem;
+      max-height: 200px;
+      object-fit: cover;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #111;
+    }
+    h2 {
+  font-size: 4rem; /* Очень большой размер, можно менять */
+}
+.team-photo {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.team-photo img {
+  width: 430px; /* Уменьшил до 300px */
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.clan-section {
+  padding: 4rem 2rem;
+  background: linear-gradient( #0f0f0f);
+  color: #f0f0f0;
+}
+
+.clan-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.clan-text {
+  flex: 1 1 60%;
+}
+
+.clan-text h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.clan-text p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.form-title {
+  font-weight: bold;
+  margin-top: 1.5rem;
+  color: #7cf19c;
+}
+
+.application-form {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.application-form li {
+  margin-bottom: 0.5rem;
+}
+
+.apply-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  background: #a0b9f1;
+  color: #000;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.apply-btn:hover {
+  background: #5ed78a;
+}
+
+.clan-image {
+  flex: 1 1 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clan-image img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .clan-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .clan-text, .clan-image {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .application-form {
+    text-align: left;
+  }
+}
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #111; /* можно поменять фон */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+#preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-logo {
+  width: 120px;
+  animation: zoom 2s ease-in-out infinite;
+}
+
+@keyframes zoom {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+  </style>
+</head>
+<body>
+  <div id="preloader">
+    <img src="img/large.png" alt="Логотип" class="preloader-logo">
+  </div>
+  <div id="mobile-warning" style="display: none;">
+    <div class="warning-box">
+      <p>Сайт работает только на ПК</p>
+    </div>
+  </div>
+  <nav>
+    <ul id="menu">
+      <li class="custom-pagination-item active">
+        <a href="#home">
+          <div class="progress-bar"></div>
+          ЮнионДекватор
+        </a>
+      </li>
+      <li class="custom-pagination-item">
+        <a href="#about">
+          <div class="progress-bar"></div>
+          О нас
+        </a>
+      </li>
+      <li class="custom-pagination-item">
+        <a href="#team">
+          <div class="progress-bar"></div>
+          Наш состав
+        </a>
+      </li>
+      <li class="custom-pagination-item">
+        <a href="#clan">
+          <div class="progress-bar"></div>
+          Наш клан
+        </a>
+      </li>
+      <li class="custom-pagination-item">
+        <a href="#jersey">
+          <div class="progress-bar"></div>
+          Джерси
+        </a>
+      </li>
+      <li class="custom-pagination-item">
+        <a href="#contacts">
+          <div class="progress-bar"></div>
+          Контакты
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <main>
+    <section id="home">
+    </section>
+
+    
+    <section id="about" style="display: flex; gap: 2rem;">
+
+        <div style="flex: 1; display: flex; flex-direction: column;">
+          <h2 style="margin-bottom: 3,5rem;">UnionDequator</h2>
+          <p>Мы — киберспортивная организация UnionDequator по дисциплине Warface. Будем рады каждому новому болельщику 💙</p>
+          <ul style="margin-top: 1rem; padding-left: 1.2rem; margin-bottom: 2rem;">
+            <h3>Турнирные достижения UnionDequator eSports ⭐</h3>
+            <li>✅ APL Season I: Swiss Stage — 9 место [200 000 рублей]</li>
+            <li>✅ Astrum Junior League Season II — 3-4 место [30 000 кредитов]</li>
+            <li>✅ билайн Valkyrie League — 2 место [200 000 рублей]</li>
+            <li>✅ Astrum League Season II — 1 место [2 500 000 рублей]</li>
+            <li>✅ Astrum League Season III - 4 место [600 000 рублей]</li>
+            <li>✅ Astrum League ChampionsShip 2025 - 1 место [5 000 000 рублей]</li>
+            <li>✅ Battle Cup Призраки Джунглей: Захват — 1 место [50 000 кредитов]</li>
+            <li>✅ Battle Cup Призраки Джунглей: Блиц — 1 место [50 000 кредитов]</li>
+            <li>✅ Battle Cup Призраки Джунглей: Штурм — 1 место [50 000 кредитов]</li>
+            <li>✅ Battle Cup Призраки Джунглей: Опорный пункт — 1 место [50 000 кредитов]</li>
+            <li>✅ Clans Cup Summer 2024 — 1 место [105 000 кредитов]</li>
+            <li>✅ Шоу-матч "Битва чемпионов" РЭД ЭКСПО - 1 место [500 000 рублей]</li>
+            <li>✅ Clans Cup Winter 2025 — 1 место [105000 кредитов]</li>
+            <li>✅ Astrum League Championship 2024 — 1 место [5 000 000 рублей]</li>
+          </ul>
+          
+          <a href="https://vk.com/udsports?from=groups" target="_blank"
+             style="padding: 1rem 2rem; font-size: 1.3rem; background-color: #2a66c9; color: white; text-decoration: none; border-radius: 8px; font-weight: 700; width: fit-content; box-shadow: 0 4px 8px rgba(42, 102, 201, 0.4); transition: background-color 0.3s;">
+            Группа в VK
+          </a>
+        </div>
+      
+        <div style="flex-shrink: 0;">
+          <img 
+            src="https://sun9-12.userapi.com/impg/__dJZ9Cd685HGDXY8-TwMREKhdynw4fui6BVvg/bXPH-OwrdEw.jpg?size=1200x1200&quality=95&sign=dc714f094bbda108361f509964d14fb5&type=album" 
+            alt="UnionDequator" 
+            style="width: 550px; height: 550px; object-fit: cover; border-radius: 12px; box-shadow: 0 0 10px rgba(160, 185, 241, 0.6);" 
+          />
+        </div>
+        
+      </section>
+    
+
+    <section id="team">
+      <h2>Наш состав</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="https://sun9-70.userapi.com/impg/5Lzqn-nIbz-l7xPIOxHjK_HGgIJX_0JNO4BX3A/jCfkilHMZlw.jpg?size=1200x1200&quality=95&sign=008502d8734f494ff6adb83204666a2f&type=album" alt="Участник" />
+          <p>Вадим «Ферева» Рулев</p>
+          <p>Медик</p>
+        </div>
+        <div class="card">
+          <img src="https://sun9-68.userapi.com/impg/RMw8V64fzkzwcs8JN4le4yaQhynmh2vIJsb7Lg/q3Fs4wv5Das.jpg?size=1200x1200&quality=95&sign=02800c299afde686b37987e7d6980a05&type=album" alt="Участник" />
+          <p>Андрей «Баам» Хнаев </p>
+          <p>Снайпер</p>
+        </div>
+        <div class="card">
+          <img src="https://sun9-72.userapi.com/impg/MEyQvH75ROSHUhcWSvWd_G-aWzVFo1fKfulxnA/7FFPA6RCYAc.jpg?size=2560x1707&quality=95&sign=84fdf4e9198c85fd539505ac96db4ea4&type=album" alt="Участник" />
+          <p>Андрей «Барселона» Фомин</p>
+          <p>Медик</p>
+        </div>
+        <div class="card">
+          <img src="https://i.postimg.cc/Y0NB15GH/image.png" alt="Участник" />
+          <p>Денис «Дивайн» Лобанов</p>
+          <p>Инженер</p>
+        </div>
+        <div class="card">
+          <img src="https://sun9-52.userapi.com/impg/6WMHYtQnXqvrY7CiKuNhCEQ9K-G8MP51bsuxVw/EG6_YJ7I45k.jpg?size=1000x1000&quality=95&sign=3a4e04d89458599511f153ab6bc53bd9&type=album" alt="Участник" />
+          <p>Слава «Ку3.14» Петроградский</p>
+          <p>Штурмовик</p>
+        </div>
+        </div>
+        <div class="team-photo">
+          <img src="https://sun9-48.userapi.com/impg/r4GNyHdDAsAO8KC6zhhyUxZwU70OH41nsbpQZA/gtpBOUN2lmE.jpg?size=1500x1500&quality=95&sign=98a6ecdb4e57fbea00b4953341bbe0e5&type=album" alt="Общая фотография команды" />
+        </div>
+      </div>
+    </section>
+
+    <section id="clan" class="clan-section">
+      <div class="clan-content">
+        <div class="clan-text">
+          <h2>Наш клан</h2>
+          <p>
+            Киберспортивный клан, развивающийся в различных дисциплинах. Мы стремимся к победе и сплочённости.
+          </p>
+          <p class="form-title">‼Форма заявки:‼</p>
+          <ol class="application-form">
+            <li>Ваш игровой никнейм 🕹:</li>
+            <li>Возраст 🎂:</li>
+            <li>Страна/город 🌍:</li>
+            <li>Пинг + FPS 📶🎮:</li>
+            <li>Имеется ли опыт в турнирах? Если да, то какой? 🏆 (Расписать подробно)</li>
+            <li>Имеется ли микрофон? 🔊 (исправный, без шумов)</li>
+            <li>Откуда узнали о нашей организации? И почему хотите именно к нам? 🤔</li>
+            <li>Пару слов о себе: Кем вы себя считаете и чего хотите добиться, находясь в нашем клане? 🚀</li>
+            <li>Скриншот из игры с лигой на РМ за последние 3 сезона 📸:</li>
+          </ol>
+          <p>Подавайте заявки, будем рады каждому! 😊✌</p>
+          <a href="https://vk.com/topic-127916811_35402891?offset=620" target="_blank" class="apply-btn">Подать заявку</a>
+        </div>
+        <div class="clan-image">
+          <img src="https://sun9-68.userapi.com/impg/1RSZcJzT8y1ORxVAi7r4eKvF2Rp7wRmDQpRVjQ/y3Y-_tNtGNE.jpg?size=1200x1200&quality=95&sign=3987554ab2ba32e420090730be92c354&type=album" alt="Clan Image">
+        </div>
+      </div>
+    </section>
+    
+
+   <section id="jersey">
+  <h2>Джерси</h2>
+  <div class="jersey-container">
+    <img class="jersey-image" src="https://sun9-55.userapi.com/impg/LBT_I_QPl5S9f2IYzludxUTOt6tzMGQdnpgONQ/x8zFtxkbNnE.jpg?size=2560x2560&quality=95&sign=65be2c1dcb64696adab7509d938d3670&type=album" alt="Джерси" />
+    <div class="jersey-description">
+      <h1>Цена: 2 990 ₽</h1>
+      <p>📝 <strong>Введение</strong><br>
+        Футболки UnionDequator eSports — это не просто одежда, это символ вашей преданности киберспорту 🎮 и команде 🏅. Мы предлагаем стильные и комфортные футболки 👕, которые подойдут как для игр 🎮, так и для повседневной носки 🏙️.</p>
+
+      <p>🎨 <strong>Дизайн</strong><br>
+        Наши футболки имеют уникальный дизайн, который отражает дух команды UnionDequator. Яркие цвета 🌈✨, логотипы 🏷️ и графические элементы делают каждую футболку настоящим произведением искусства 🐦‍🔥.</p>
+
+      <p>🔍 <strong>Качество материалов</strong><br>
+        Мы используем только высококачественные материалы для производства наших футболок. Мягкий и дышащий полиэстер (COOLPASS) 🌬️💨 обеспечивает комфорт в течение всего дня, а прочные швы гарантируют долговечность 🔒. Каждая футболка проходит строгий контроль качества ✅.</p>
+
+      <p>📏 <strong>Удобство и размерный ряд</strong><br>
+        Доступны размеры от S до 3XL 📏📐. Вы можете указать любой никнейм, который хотите, чтобы был на вашей футболке! Мы заботимся о посадке и свободе движений 🕺💃.</p>
+
+      <p>🤝 <strong>Поддержка команды</strong><br>
+        Часть средств от продажи идет на развитие команды и участие в турнирах 🏆🎉, что позволяет нам радовать вас победами 🥇.</p>
+
+      <p>🌟 <strong>Заключение</strong><br>
+        Не упустите шанс стать частью UnionDequator eSports! Закажите футболку сегодня и покажите, что вы — настоящий фанат киберспорта 💪👊 ⭐❤️‍🔥</p>
+
+      <div class="jersey-buttons">
+        <a href="https://vk.com/market/product/futbolka-uniondequator-127916811-11486252" class="button">Заказать</a>
+        <button id="offerButton" class="button">Оферта</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Модальное окно -->
+<div id="offerModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <div class="offer-text">
+      <h3>Политика конфиденциальности</h3>
+      <p>Мы уважаем вашу конфиденциальность и обязуемся защищать личную информацию, которую вы предоставляете. Все данные, которые вы вводите при оформлении заказа, используются только для обработки и доставки вашего заказа и не передаются третьим лицам без вашего согласия. Покупая продукцию UnionDequator, вы соглашаетесь с нашей политикой обработки персональных данных в соответствии с Федеральным законом РФ №152-ФЗ.</p>
+      <p>Мы используем только официальные инструменты оплаты и платформы, а ваша информация передаётся по защищённым каналам. В случае возникновения вопросов по возврату, доставке или защите данных, свяжитесь с нами через официальные каналы связи, указанные на сайте.</p>
+      <p>Спасибо за доверие к UnionDequator!</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  #mobile-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.warning-box {
+  text-align: center;
+  font-size: 24px;
+  font-family: 'Montserrat', sans-serif;
+  padding: 20px;
+}
+  .jersey-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    padding: 20px;
+  }
+  .jersey-image {
+    width: 350px;
+    height: 35 0px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  .jersey-description {
+    max-width: 800px;
+  }
+  .jersey-buttons {
+    margin-top: 20px;
+  }
+  .button {
+    background-color: #a0b9f1
+    ;
+    color: #fff;
+    padding: 12px 24px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    align-items: center;
+  }
+  .button:hover {
+    background-color: #555;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  .modal-content {
+    background-color: #2f2f2f;
+    color: #8fd3ff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .close-button {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .close-button:hover {
+    color: red;
+  }
+  .admin-title {
+  margin-top: 50px;
+  font-size: 1.8rem;
+  color: #a0b9f1;
+}
+
+.admin-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.admin-card {
+  background: #111;
+  border: 2px solid #1e2a44;
+  border-radius: 16px;
+  padding: 20px 30px;
+  width: 260px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 10px rgba(160, 185, 241, 0.2);
+  animation: fadeInUp 1s ease;
+}
+
+.admin-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(160, 185, 241, 0.5);
+}
+
+.admin-card img {
+  width: 40px;
+  margin-bottom: 10px;
+  filter: invert(80%);
+}
+
+.admin-info h4 {
+  margin: 10px 0 5px;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.admin-info a {
+  color: #a0b9f1;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.admin-info a:hover {
+  text-decoration: underline;
+}
+.contacts-section {
+  padding: 60px 20px;
+  background: #0c0c0c;
+  color: #fff;
+  text-align: center;
+  animation: fadeInUp 1.2s ease-out;
+}
+
+.contacts-section h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #a0b9f1;
+}
+
+.contacts-section p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #a0b9f1;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+  transform: scale(1.1);
+}
+
+.social-links img {
+  width: 30px;
+  height: 30px;
+  filter: invert(80%);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+</style>
+
+<script>
+  const modal = document.getElementById("offerModal");
+  const btn = document.getElementById("offerButton");
+  const span = document.getElementsByClassName("close-button")[0];
+
+  btn.onclick = function () {
+    modal.style.display = "block";
+  }
+
+  span.onclick = function () {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+<section id="contacts" class="contacts-section">
+  <h2>Связь с нами</h2>
+  <p>Пишите нам в соцсетях:</p>
+  <div class="social-links">
+    <a href="https://vk.com/udsports" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/VK.com-logo.svg" alt="VK" />
+      <span>Группа VK</span>
+    </a>
+  </div>
+
+  <h3 class="admin-title">Администрация</h3>
+  <div class="admin-cards">
+    <div class="admin-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/VK.com-logo.svg" alt="VK" />
+      <div class="admin-info">
+        <h4>Глава</h4>
+        <a href="https://vk.com/id158911900" target="_blank">@id158911900</a>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/VK.com-logo.svg" alt="VK" />
+      <div class="admin-info">
+        <h4>Зам Главы</h4>
+        <a href="https://vk.com/sakuratakami" target="_blank">@sakuratakami</a>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/VK.com-logo.svg" alt="VK" />
+      <div class="admin-info">
+        <h4>Пососунчик</h4>
+        <a href="https://vk.com/poseidonskiygg" target="_blank">@poseidonskiygg</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <footer>
+      &copy; 2025 ЮнионДекватор. Все права защищены.
+    </footer>
+  </main>
+
+  <script>
+    // Анимация появления секций при скролле
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    sections.forEach(section => observer.observe(section));
+
+    // Подсветка пункта меню при скролле
+    const navItems = document.querySelectorAll('.custom-pagination-item');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 60) {
+          current = section.getAttribute('id');
+        }
+      });
+      navItems.forEach(li => {
+        li.classList.remove('active');
+        if (li.querySelector('a').getAttribute('href') === '#' + current) {
+          li.classList.add('active');
+        }
+      });
+    });
+    window.addEventListener("load", function () {
+    setTimeout(function () {
+      const preloader = document.getElementById("preloader");
+      preloader.classList.add("fade-out");
+      setTimeout(() => preloader.style.display = "none", 500);
+    }, 3000); // 3 секунды
+  });
+  function isMobileDevice() {
+    return window.innerWidth < 1024;
+  }
+
+  window.addEventListener("load", function () {
+    if (isMobileDevice()) {
+      document.getElementById("mobile-warning").style.display = "flex";
+      document.body.style.overflow = "hidden"; // отключаем прокрутку
+    }
+  });
+
+    
+  </script>
+</body>
+</html>
